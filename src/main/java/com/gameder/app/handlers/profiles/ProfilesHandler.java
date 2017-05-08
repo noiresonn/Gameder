@@ -15,7 +15,7 @@ public class ProfilesHandler {
     private boolean asd = true;
 
     @CrossOrigin
-    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerList() {
         if(asd) {
             generateProfiles();
@@ -28,6 +28,18 @@ public class ProfilesHandler {
 
         return profiles;
     }
+    @CrossOrigin
+    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
+    public ArrayList<Profile> getGamerListTest() {
+
+        ArrayList<Profile> profiles = new ArrayList<Profile>();
+        profiles.add(ProfileGenerator.getRandomProfile());
+        profiles.add(ProfileGenerator.getRandomProfile());
+        profiles.add(ProfileGenerator.getRandomProfile());
+
+        return profiles;
+    }
+
 
     public void generateProfiles() {
         for(int i = 0; i < 50; i++) {
