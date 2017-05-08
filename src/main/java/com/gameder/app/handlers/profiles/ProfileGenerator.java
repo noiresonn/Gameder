@@ -1,6 +1,8 @@
 
 package com.gameder.app.handlers.profiles;
 
+import com.gameder.app.preferences.Preferences;
+
 import java.util.Random;
 
 public class ProfileGenerator {
@@ -36,6 +38,6 @@ public class ProfileGenerator {
     }
 
     public static Profile getRandomProfile() {
-        return new Profile(getRandomName(), getRandomImg());
+        return new Profile(getRandomName(), getRandomImg(), Preferences.getRandomPreferences());
     }
 }
