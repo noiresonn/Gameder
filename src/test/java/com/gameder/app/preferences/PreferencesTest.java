@@ -10,10 +10,11 @@ import org.junit.Test;
 
 public class PreferencesTest {
     @Test
-    public Integer getRandomPreferences() throws Exception {
-        Integer test = getRandomPreferences();
+    public void getRandomPreferences() throws Exception {
+        java.lang.Integer test;
+        test = Preferences.getRandomPreferences();
         Assert.assertTrue(0 <= test && test<=100);
-        return test;
+        System.out.println(test);
     }
 
 
