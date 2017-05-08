@@ -1,5 +1,6 @@
 package com.gameder.app.handlers.profiles;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ProfilesHandler {
             int i = 0;
             while(iterator.hasNext() && i < 5) {
                 profiles.add(profileTreeSet.higher(running));
+                running = profileTreeSet.higher(running);
                 i++;
             }
 
