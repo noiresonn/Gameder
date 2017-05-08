@@ -30,7 +30,7 @@ public class ProfileGenerator {
     }
 
     public static String getRandomImg() {
-        String url = "https://robohash.org/";
+        String url = "https://robohash.org/set_set3/";
         Random rand = new Random();
         int set = rand.nextInt(10000);
         url += set;

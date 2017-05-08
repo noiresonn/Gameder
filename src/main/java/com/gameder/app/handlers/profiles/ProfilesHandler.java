@@ -36,6 +36,9 @@ public class ProfilesHandler {
         profiles.add(ProfileGenerator.getRandomProfile());
         profiles.add(ProfileGenerator.getRandomProfile());
         profiles.add(ProfileGenerator.getRandomProfile());
+        profiles.add(ProfileGenerator.getRandomProfile());
+        profiles.add(ProfileGenerator.getRandomProfile());
+        profiles.add(ProfileGenerator.getRandomProfile());
 
         return profiles;
     }
