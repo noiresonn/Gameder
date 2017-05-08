@@ -46,6 +46,7 @@ public class ProfilesHandler {
             int i = 0;
             while(iterator.hasNext() && i < 5) {
                 profiles.add(profileTreeSet.higher(running));
+                running = profileTreeSet.higher(running);
                 i++;
             }
 
