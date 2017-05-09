@@ -3,6 +3,7 @@ package com.gameder.app.handlers.profiles;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -35,4 +36,29 @@ public class ProfileSetTest {
         Assert.assertTrue(ts.first().getPreference() < ts.last().getPreference());
     }
 
+    @Test
+    public void ProfileListIsCorrectSize() {
+        ProfilesHandler p = new ProfilesHandler();
+        ArrayList<Profile> cp = p.getGamerList();
+        for(Profile pr : cp) {
+            System.out.println("ProfileList : " + pr.toString());
+        }
+        Assert.assertTrue(cp.size() == 5);
+    }
+
+    @Test
+    public void ProfileListIsValid() {
+        ProfilesHandler p = new ProfilesHandler();
+        ArrayList<Profile> a = p.getGamerList();
+        ArrayList<Profile> b = p.getGamerList();
+
+        Assert.assertNotEquals(a, b);
+    }
+
+    @Test
+    public void RootIsFound() {
+        ProfilesHandler p = new ProfilesHandler();
+
+        Assert.assertNotNull(p.findRoot());
+    }
 }
