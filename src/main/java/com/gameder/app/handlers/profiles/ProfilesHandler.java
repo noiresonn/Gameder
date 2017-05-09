@@ -16,8 +16,11 @@ public class ProfilesHandler {
     private Profile maxRoot;
     private Profile minRoot;
 
+    private boolean maxnull = false;
+    private boolean minnull = false;
+
     @CrossOrigin
-    @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerList() {
         if(profileTreeSet.isEmpty()) {
             generateProfiles();
@@ -35,7 +38,7 @@ public class ProfilesHandler {
         return profiles;
     }
     @CrossOrigin
-    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerListTest() {
 
         ArrayList<Profile> profiles = new ArrayList<Profile>();
@@ -82,15 +85,45 @@ public class ProfilesHandler {
             ArrayList<Profile> profiles = new ArrayList<>();
 
             for(int i = 0; i < 5; i ++) {
-                if((maxRoot.getPreference() - rootPreference.getPreference()) > (rootPreference.getPreference() - minRoot.getPreference())) {
+                if(!minnull && !maxnull) {
+                    if((maxRoot.getPreference() - rootPreference.getPreference()) > (rootPreference.getPreference() - minRoot.getPreference())) {
+                        profiles.add(minRoot);
+                        minRoot = profileTreeSet.lower(minRoot);
+                        if(minRoot == null) {
+                            System.out.println("           Min limit reached");
+                            minnull = true;
+                        }
+                    } else if((maxRoot.getPreference() - rootPreference.getPreference()) < (rootPreference.getPreference() - minRoot.getPreference())) {
+                        profiles.add(maxRoot);
+                        maxRoot = profileTreeSet.higher(maxRoot);
+                        if(maxRoot == null) {
+                            System.out.println("           Max limit reached");
+                            maxnull = true;
+                        }
+                    } else {
+                        profiles.add(maxRoot);
+                        maxRoot = profileTreeSet.higher(maxRoot);
+                        if(maxRoot == null) {
+                            System.out.println("          Max limit reached");
+                            maxnull = true;
+                        }
+                    }
+                } else if(minnull) {
+                    profiles.add(maxRoot);
+                    maxRoot = profileTreeSet.higher(maxRoot);
+                    System.out.println("GIMME MAX");
+                } else if(maxnull) {
                     profiles.add(minRoot);
                     minRoot = profileTreeSet.lower(minRoot);
-                } else if((maxRoot.getPreference() - rootPreference.getPreference()) < (rootPreference.getPreference() - minRoot.getPreference())) {
-                    profiles.add(maxRoot);
-                    maxRoot = profileTreeSet.higher(maxRoot);
-                } else {
-                    profiles.add(maxRoot);
-                    maxRoot = profileTreeSet.higher(maxRoot);
+                    System.out.println("GIMME MIN");
+                }
+                System.out.println("END");
+                if(maxRoot == null && minRoot == null) {
+                    System.out.println("           Reset");
+                    minnull = false;
+                    maxnull = false;
+                    maxRoot = profileTreeSet.higher(rootPreference);
+                    minRoot = profileTreeSet.lower(rootPreference);
                 }
             }
             return profiles;
