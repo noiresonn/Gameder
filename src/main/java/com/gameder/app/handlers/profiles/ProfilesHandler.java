@@ -1,5 +1,6 @@
 package com.gameder.app.handlers.profiles;
 
+import com.gameder.app.preferences.Preferences;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,15 +11,20 @@ import java.util.TreeSet;
 public class ProfilesHandler {
 
     private TreeSet<Profile> profileTreeSet = new TreeSet<>();
-    private Profile running;
-    private Iterator<Profile> iterator = profileTreeSet.iterator();
-    private boolean asd = true;
+
+    private Profile rootPreference;
+    private Profile maxRoot;
+    private Profile minRoot;
 
     @CrossOrigin
     @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerList() {
-        if(asd) {
+        if(profileTreeSet.isEmpty()) {
             generateProfiles();
+        }
+
+        if(rootPreference == null) {
+            rootPreference = findRoot();
         }
 
         ArrayList<Profile> profiles = getFiveProfiles();
@@ -40,6 +46,28 @@ public class ProfilesHandler {
         return profiles;
     }
 
+    public Profile findRoot() {
+        int root = Preferences.getRandomPreferences();
+        generateProfiles();
+        Iterator<Profile> iterator = profileTreeSet.iterator();
+
+        while(true) {
+            while(iterator.hasNext()) {
+                Profile p = iterator.next();
+                if(p.getPreference() == root) {
+                    maxRoot = profileTreeSet.higher(p);
+                    minRoot = profileTreeSet.lower(p);
+                    System.out.println("Root number: " + root + " ; Root profile: " + p.toString());
+                    return p;
+                }
+            }
+            iterator = profileTreeSet.iterator();
+            root++;
+            if(root > 100) {
+                root = 0;
+            }
+        }
+    }
 
     public void generateProfiles() {
         for(int i = 0; i < 50; i++) {
@@ -50,18 +78,21 @@ public class ProfilesHandler {
 
     public ArrayList<Profile> getFiveProfiles() {
         if(!profileTreeSet.isEmpty()) {
-            if(running == null) {
-                running = profileTreeSet.first();
-            }
 
             ArrayList<Profile> profiles = new ArrayList<>();
-            int i = 0;
-            while(iterator.hasNext() && i < 5) {
-                profiles.add(profileTreeSet.higher(running));
-                running = profileTreeSet.higher(running);
-                i++;
-            }
 
+            for(int i = 0; i < 5; i ++) {
+                if((maxRoot.getPreference() - rootPreference.getPreference()) > (rootPreference.getPreference() - minRoot.getPreference())) {
+                    profiles.add(minRoot);
+                    minRoot = profileTreeSet.lower(minRoot);
+                } else if((maxRoot.getPreference() - rootPreference.getPreference()) < (rootPreference.getPreference() - minRoot.getPreference())) {
+                    profiles.add(maxRoot);
+                    maxRoot = profileTreeSet.higher(maxRoot);
+                } else {
+                    profiles.add(maxRoot);
+                    maxRoot = profileTreeSet.higher(maxRoot);
+                }
+            }
             return profiles;
         } else {
             return null;
