@@ -52,6 +52,14 @@ public class ProfileSetTest {
         ArrayList<Profile> a = p.getGamerList();
         ArrayList<Profile> b = p.getGamerList();
 
+        for(Profile x : a) {
+            System.out.println("a : " + x.toString());
+        }
+
+        for(Profile x : b) {
+            System.out.println("b : " + x.toString());
+        }
+
         Assert.assertNotEquals(a, b);
     }
 
@@ -60,5 +68,16 @@ public class ProfileSetTest {
         ProfilesHandler p = new ProfilesHandler();
 
         Assert.assertNotNull(p.findRoot());
+    }
+
+    @Test
+    public void ProfileListBordersWorking() {
+        ProfilesHandler p = new ProfilesHandler();
+
+        for(int i = 0; i < 20; i++) {
+            p.getGamerList();
+        }
+        ArrayList<Profile> arp = p.getGamerList();
+        Assert.assertNotNull(arp);
     }
 }
