@@ -28,6 +28,22 @@ public class ProfileGenerator {
         int index = rand.nextInt(usernames.length);
         return usernames[index];
     }
+    public static String getRandomMail() {
+        String[] emails = {"killmenow@att.net", "citadel@yahoo.com","sassen@sbcglobal.net","nachbaur@hotmail.com",
+                "tellis@outlook.com","mwandel@me.com","bjornk@yahoo.com","wayward@verizon.net","mfleming@mac.com",
+                "wildfire@me.com","leakin@live.com","ajohnson@aol.com","aukjan@me.com","delpino@me.com","danny@optonline.net",
+                "agapow@optonline.net","fglock@comcast.net","ranasta@sbcglobal.net","mfburgo@att.net","dburrows@att.net",
+                "budinger@sbcglobal.net","mthurn@hotmail.com","johndo@me.com","loscar@outlook.com","kodeman@aol.com","parksh@icloud.com",
+                "tbmaddux@sbcglobal.net", "marioph@hotmail.com","jnolan@att.net","jemarch@me.com","smallpaul@optonline.net",
+                "jginspace@yahoo.ca","oevans@sbcglobal.net","bebing@yahoo.com","jamuir@aol.com","treeves@optonline.net","duncand@gmail.com",
+                "kalpol@optonline.net","vsprintf@icloud.com","moonlapse@comcast.net","hauma@yahoo.ca","mbalazin@hotmail.com","mdielmann@gmail.com",
+                "skoch@sbcglobal.net","fallorn@hotmail.com","njpayne@comcast.net","sassen@sbcglobal.net","bdthomas@live.com","matthijs@yahoo.com",
+                "grady@me.com"};
+        Random rand = new Random();
+        int index = rand.nextInt(emails.length);
+        return emails[index];
+    }
+
 
     public static String getRandomImg() {
         String url = "https://robohash.org/";
@@ -43,6 +59,6 @@ public class ProfileGenerator {
     }
 
     public static Profile getRandomProfile() {
-        return new Profile(getRandomName(), getRandomImg(), Preferences.getRandomPreferences(),getRandomBoolean());
+        return new Profile(getRandomName(), getRandomImg(),getRandomMail(), Preferences.getRandomPreferences(),getRandomBoolean());
     }
 }
