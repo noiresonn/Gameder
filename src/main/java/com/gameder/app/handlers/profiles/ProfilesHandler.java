@@ -17,7 +17,7 @@ public class ProfilesHandler {
     private Profile minRoot;
 
     @CrossOrigin
-    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerList() {
         if(profileTreeSet.isEmpty()) {
             generateProfiles();
@@ -35,7 +35,7 @@ public class ProfilesHandler {
         return profiles;
     }
     @CrossOrigin
-    @RequestMapping(value = "/api/profiles1", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/profiles", method = RequestMethod.GET)
     public ArrayList<Profile> getGamerListTest() {
 
         ArrayList<Profile> profiles = new ArrayList<Profile>();
