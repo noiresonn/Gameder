@@ -4,11 +4,13 @@ public class Profile implements Comparable<Profile>{
     private final String name;
     private final String img;
     private int preference;
+    private boolean like;
 
-    public Profile(String name, String img, int preference) {
+    public Profile(String name, String img, int preference, boolean like) {
         this.name = name;
         this.img = img;
         this.preference = preference;
+        this.like = like;
     }
 
     public String getName() {
@@ -22,6 +24,8 @@ public class Profile implements Comparable<Profile>{
     public int getPreference() {
         return this.preference;
     }
+
+    public boolean getLike() { return this.like;}
 
     @Override
     public int compareTo(Profile p) {

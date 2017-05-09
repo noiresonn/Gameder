@@ -36,8 +36,13 @@ public class ProfileGenerator {
         url += set;
         return url;
     }
+    public static Boolean getRandomBoolean() {
+        Random rand = new Random();
+        boolean headsOrTails = getRandomBoolean();
+        return headsOrTails;
+    }
 
     public static Profile getRandomProfile() {
-        return new Profile(getRandomName(), getRandomImg(), Preferences.getRandomPreferences());
+        return new Profile(getRandomName(), getRandomImg(), Preferences.getRandomPreferences(),getRandomBoolean());
     }
 }
