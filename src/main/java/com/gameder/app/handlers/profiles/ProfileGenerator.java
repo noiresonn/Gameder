@@ -54,7 +54,7 @@ public class ProfileGenerator {
     }
     public static Boolean getRandomBoolean() {
         Random rand = new Random();
-        boolean headsOrTails = getRandomBoolean();
+        boolean headsOrTails = rand.nextBoolean();
         return headsOrTails;
     }
 
