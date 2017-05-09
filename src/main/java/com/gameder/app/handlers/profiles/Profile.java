@@ -3,12 +3,16 @@ package com.gameder.app.handlers.profiles;
 public class Profile implements Comparable<Profile>{
     private final String name;
     private final String img;
+    private final String email;
     private int preference;
+    private boolean like;
 
-    public Profile(String name, String img, int preference) {
+    public Profile(String name, String img,String email, int preference, boolean like) {
         this.name = name;
         this.img = img;
+        this.email = email;
         this.preference = preference;
+        this.like = like;
     }
 
     public String getName() {
@@ -19,9 +23,14 @@ public class Profile implements Comparable<Profile>{
         return this.img;
     }
 
+    public String getEmail() {  return this.email;}
+
     public int getPreference() {
         return this.preference;
     }
+
+    public boolean getLike() { return this.like;}
+
 
     @Override
     public int compareTo(Profile p) {
