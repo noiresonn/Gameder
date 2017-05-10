@@ -3,12 +3,17 @@ package com.gameder.app.handlers.profiles;
 import com.gameder.app.preferences.Preferences;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 @RestController
 public class ProfilesHandler {
+    private static final String dbEndpoint = System.getenv("DB_ENDPOINT");
 
     private TreeSet<Profile> profileTreeSet = new TreeSet<>();
 
@@ -65,7 +70,6 @@ public class ProfilesHandler {
      * */
     public Profile findRoot() {
         int root = Preferences.getRandomPreferences();
-        generateProfiles();
         Iterator<Profile> iterator = profileTreeSet.iterator();
 
         while(true) {
@@ -93,13 +97,67 @@ public class ProfilesHandler {
     }
 
     /**
+     * For database
+     */
+    public void loadProfileTree() {
+        try {
+            URL url = new URL(dbEndpoint);
+            URLConnection con = url.openConnection();
+            HttpURLConnection http = (HttpURLConnection) con;
+            http.setRequestMethod("GET");
+            http.setRequestProperty("Content-Type", "text/plain;charset=UTF-8");
+
+            System.out.println(http.getResponseCode());
+
+            BufferedInputStream bis = new BufferedInputStream(http.getInputStream());
+            ObjectInputStream ois = new ObjectInputStream(bis);
+
+            profileTreeSet = (TreeSet) ois.readObject();
+            System.out.printf("Size of the tree is %d\n", profileTreeSet.size());
+
+            System.out.println("load");
+        } catch (Exception e) {
+            System.out.println("Could not make the request");
+        }
+    }
+
+    /**
+     * For database
+     */
+    public void saveProfileTree(TreeSet<Profile> profiles) {
+        try {
+            URL url = new URL(dbEndpoint);
+            URLConnection con = url.openConnection();
+            HttpURLConnection http = (HttpURLConnection) con;
+            http.setRequestMethod("POST");
+            http.setRequestProperty("Content-Type", "text/plain;charset=UTF-8");
+            http.setDoOutput(true);
+
+            BufferedOutputStream bos = new BufferedOutputStream(http.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+
+            oos.writeObject(profiles);
+            oos.close();
+
+            System.out.printf("save: %d\n", http.getResponseCode());
+        } catch (Exception e) {
+            System.out.println("Could not make the request");
+        }
+    }
+
+    /**
      *  Generates 50 profiles and adds them to the tree
      */
     public void generateProfiles() {
+        TreeSet<Profile> profiles = new TreeSet<Profile>();
+
         for(int i = 0; i < 50; i++) {
             Profile p = ProfileGenerator.getRandomProfile();
-            profileTreeSet.add(p);
+            profiles.add(p);
         }
+
+        this.saveProfileTree(profiles);
+        this.loadProfileTree();
     }
 
     /**
@@ -166,8 +224,13 @@ public class ProfilesHandler {
             }
             return profiles;
         } else {
+            System.out.println("Reached else");
             return null;
         }
+    }
+
+    public Profile getRoot() {
+        return this.rootPreference;
     }
 
     public TreeSet<Profile> getProfilesTreeset() {
