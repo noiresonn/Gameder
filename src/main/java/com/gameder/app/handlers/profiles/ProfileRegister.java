@@ -9,11 +9,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.TreeSet;
 
-
+/**
+ * Simple backup register
+ *
+ * Created by Vili
+ */
 public class ProfileRegister {
 
     private TreeSet<Profile> profileTreeSet;
 
+    /**
+     * Getting the profile treeset from a textfile.
+     * @return treeset with profiles
+     * @throws IOException
+     */
     public TreeSet<Profile> getProfileRegister() throws IOException {
         try {
             FileInputStream fi = new FileInputStream(new File("profiles.txt"));
@@ -22,7 +31,6 @@ public class ProfileRegister {
             fi.close();
             oi.close();
             System.out.println("File loaded");
-
             return profileTreeSet;
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -33,6 +41,11 @@ public class ProfileRegister {
         }
     }
 
+    /**
+     * Profile treeset updating/creating
+     * @param ts
+     * @throws IOException
+     */
     public void saveProfileRegister(TreeSet<Profile> ts) throws IOException {
         try {
             FileOutputStream f = new FileOutputStream(new File("profiles.txt"));
@@ -45,6 +58,4 @@ public class ProfileRegister {
             System.out.println("File not found");
         }
     }
-
-
 }
