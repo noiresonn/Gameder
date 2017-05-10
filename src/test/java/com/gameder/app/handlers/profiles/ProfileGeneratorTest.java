@@ -16,4 +16,11 @@ public class ProfileGeneratorTest {
         Assert.assertTrue("Works",test.getImg().length() > 0);
     }
 
+    @Test
+    public void ProfileDescriptionTest() {
+        Profile test = ProfileGenerator.getRandomProfile();
+        System.out.println(test.getDesc());
+        Assert.assertNotNull(test.getDesc());
+    }
+
 }
