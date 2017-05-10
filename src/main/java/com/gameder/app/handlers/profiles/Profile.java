@@ -1,6 +1,8 @@
 package com.gameder.app.handlers.profiles;
 
-public class Profile implements Comparable<Profile>{
+import java.io.Serializable;
+
+public class Profile implements Comparable<Profile>, Serializable{
     private final String name;
     private final String img;
     private final String email;
