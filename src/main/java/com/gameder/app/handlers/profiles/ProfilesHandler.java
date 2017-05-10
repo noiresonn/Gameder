@@ -93,6 +93,22 @@ public class ProfilesHandler {
     }
 
     /**
+     * For database
+     */
+    public void loadProfileTree() {
+
+        //(profileTreeSet = ;
+    }
+
+    /**
+     * For database
+     * @param ts
+     */
+    public void saveProfileTree(TreeSet<Profile> ts) {
+
+    }
+
+    /**
      *  Generates 50 profiles and adds them to the tree
      */
     public void generateProfiles() {
