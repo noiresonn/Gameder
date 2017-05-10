@@ -177,6 +177,17 @@ public class ProfilesHandler {
                  * If either end is reached, it will skip that side
                  * The algorithm can be easily limited if the profile pool is huge
                  * */
+
+                /**
+                 *  If both ends have been reached, the roots will be reset
+                 */
+                if(maxRoot == null && minRoot == null) {
+                    minnull = false;
+                    maxnull = false;
+                    maxRoot = profileTreeSet.higher(rootPreference);
+                    minRoot = profileTreeSet.lower(rootPreference);
+                }
+
                 if(!minnull && !maxnull) {
                     /**
                      * Minroot is closer
@@ -212,15 +223,6 @@ public class ProfilesHandler {
                     minRoot = profileTreeSet.lower(minRoot);
                 }
 
-                /**
-                 *  If both ends have been reached, the roots will be reset
-                 */
-                if(maxRoot == null && minRoot == null) {
-                    minnull = false;
-                    maxnull = false;
-                    maxRoot = profileTreeSet.higher(rootPreference);
-                    minRoot = profileTreeSet.lower(rootPreference);
-                }
             }
             return profiles;
         } else {
