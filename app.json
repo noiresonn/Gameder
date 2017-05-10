@@ -7,7 +7,7 @@
     }
   },
   "env": {
-    "DB_PROFILE": {
+    "DB_ENDPOINT": {
       "required": true
     }
   }
