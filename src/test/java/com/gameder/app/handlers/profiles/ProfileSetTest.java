@@ -12,7 +12,7 @@ public class ProfileSetTest {
     public void ProfileSetIsFilled() {
         ProfilesHandler p = new ProfilesHandler();
 
-        p.generateProfiles();
+        p.getGamerList();
 
         TreeSet<Profile> ts = p.getProfilesTreeset();
         Iterator ite = ts.iterator();
@@ -29,7 +29,7 @@ public class ProfileSetTest {
     public void ProfileSetIsInOrder() {
         ProfilesHandler p = new ProfilesHandler();
 
-        p.generateProfiles();
+        p.getGamerList();
 
         TreeSet<Profile> ts = p.getProfilesTreeset();
 
@@ -67,7 +67,9 @@ public class ProfileSetTest {
     public void RootIsFound() {
         ProfilesHandler p = new ProfilesHandler();
 
-        Assert.assertNotNull(p.findRoot());
+        p.getGamerList();
+
+        Assert.assertNotNull(p.getRoot());
     }
 
     @Test

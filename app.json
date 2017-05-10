@@ -5,5 +5,10 @@
         "test": "mvn test -B"
       }
     }
+  },
+  "env": {
+    "DB_PROFILE": {
+      "required": true
+    }
   }
 }
