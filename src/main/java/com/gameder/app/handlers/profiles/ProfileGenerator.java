@@ -5,8 +5,14 @@ import com.gameder.app.preferences.Preferences;
 
 import java.util.Random;
 
+/**
+ * Created by Vili
+ */
 public class ProfileGenerator {
 
+    /**
+     *  Profile generator which gives a random name, email, matching status and generated picture for it.
+     */
     public static String getRandomName() {
         String[] usernames = {"ferventnumber", "orcuslistener", "ableflag", "smellypapoose", "druggedoriginates",
                 "croxdalemagma", "unsavouryallianz", "anxietywick", "bittenmoustache", "carillonbaseball", "polentabinding",
@@ -28,6 +34,7 @@ public class ProfileGenerator {
         int index = rand.nextInt(usernames.length);
         return usernames[index];
     }
+
     public static String getRandomMail() {
         String[] emails = {"killmenow@att.net", "citadel@yahoo.com","sassen@sbcglobal.net","nachbaur@hotmail.com",
                 "tellis@outlook.com","mwandel@me.com","bjornk@yahoo.com","wayward@verizon.net","mfleming@mac.com",
@@ -52,6 +59,7 @@ public class ProfileGenerator {
         url += set;
         return url;
     }
+
     public static Boolean getRandomBoolean() {
         Random rand = new Random();
         boolean headsOrTails = rand.nextBoolean();
