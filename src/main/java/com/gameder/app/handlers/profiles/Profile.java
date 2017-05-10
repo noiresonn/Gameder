@@ -6,15 +6,17 @@ public class Profile implements Comparable<Profile>, Serializable{
     private final String name;
     private final String img;
     private final String email;
+    private final String desc;
     private int preference;
     private boolean like;
 
-    public Profile(String name, String img,String email, int preference, boolean like) {
+    public Profile(String name, String img,String email, int preference, boolean like, String desc) {
         this.name = name;
         this.img = img;
         this.email = email;
         this.preference = preference;
         this.like = like;
+        this.desc = desc;
     }
 
     public String getName() {
@@ -23,6 +25,10 @@ public class Profile implements Comparable<Profile>, Serializable{
 
     public String getImg() {
         return this.img;
+    }
+
+    public String getDesc() {
+        return this.desc;
     }
 
     public String getEmail() {  return this.email;}
